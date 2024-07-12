@@ -1,7 +1,7 @@
 # Usage: ansible-playbook -i inventories/vyos.yaml -u vyos --ask-pass playbooks/router01_dhcp.yml
 # SSH Password: vyos
 - name: vyos network config
-  hosts: vyos
+  hosts: all
   tasks:
   - name: Retrieve VyOS version info
     vyos_command:
