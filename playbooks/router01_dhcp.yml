@@ -15,9 +15,10 @@
       save: yes
       lines:
         - set system host-name {{hostname}}
+        - set service dhcp-server hostfile-update
         - set service dhcp-server shared-network-name {{ shared_network }} authoritative
-        - set service dhcp-server shared-network-name {{ shared_network }} subnet {{ lan }} default-router '{{ lan_ip }}'
-        - set service dhcp-server shared-network-name {{ shared_network }} subnet {{ lan }} name-server '{{ lan_ip }}'
+        - set service dhcp-server shared-network-name {{ shared_network }} subnet {{ lan }} option default-router '{{ lan_ip }}'
+        - set service dhcp-server shared-network-name {{ shared_network }} subnet {{ lan }} option name-server '{{ lan_ip }}'
         - set service dhcp-server shared-network-name {{ shared_network }} subnet {{ lan }} lease '86400'
         - set service dhcp-server shared-network-name {{ shared_network }} subnet {{ lan }} range {{ shared_network }}-POOL start '172.16.20.75'
         - set service dhcp-server shared-network-name {{ shared_network }} subnet {{ lan }} range {{ shared_network }}-POOL stop '172.16.20.125'
