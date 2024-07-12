@@ -1,0 +1,23 @@
+# Usage: ansible-playbook -i inventories/vyos.yaml -u vyos --ask-pass playbooks/router01_dhcp.yml
+# SSH Password: vyos
+- name: vyos network config
+  hosts: vyos
+  tasks:
+  - name: Retrieve VyOS version info
+    vyos_command:
+      commands: show version
+    register: version
+  - debug:
+      var: version.stdout_lines
+    
+  - name: configure vyos dhcp
+    vyos_config:
+      save: yes
+      lines:
+        - set system host-name {{hostname}}
+        - set service dhcp-server shared-network-name {{ shared_network }} authoritative
+        - set service dhcp-server shared-network-name {{ shared_network }} subnet {{ lan }} default-router '{{ lan_ip }}'
+        - set service dhcp-server shared-network-name {{ shared_network }} subnet {{ lan }} name-server '{{ lan_ip }}'
+        - set service dhcp-server shared-network-name {{ shared_network }} subnet {{ lan }} lease '86400'
+        - set service dhcp-server shared-network-name {{ shared_network }} subnet {{ lan }} range {{ shared_network }}-POOL start '172.16.20.75'
+        - set service dhcp-server shared-network-name {{ shared_network }} subnet {{ lan }} range {{ shared_network }}-POOL stop '172.16.20.125'

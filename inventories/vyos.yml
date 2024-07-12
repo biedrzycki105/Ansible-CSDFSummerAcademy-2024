@@ -1,0 +1,13 @@
+all:
+  hosts:
+    172.16.20.2:
+#      hostname: piccolo
+      lan_ip: 172.16.20.2
+      lan: 172.16.20.0/24
+#      shared_network: namek
+    
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+    ansible_connection: network_cli
+    ansible_network_os: vyos
+    ansible_user: vyos
